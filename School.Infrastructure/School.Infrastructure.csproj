@@ -24,4 +24,8 @@
     <ProjectReference Include="..\School.Application\School.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repository\BaseRepo\" />
+  </ItemGroup>
+
 </Project>
