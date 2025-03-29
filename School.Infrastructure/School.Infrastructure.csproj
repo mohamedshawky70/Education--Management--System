@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.2-pre02" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
@@ -18,14 +19,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="OneOf" Version="3.0.271" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\School.Application\School.Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Repository\BaseRepo\" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,15 @@
+using Mapster;
+using MapsterMapper;
 using School.Api;
-
+using School.Application;
+using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDependencies(builder.Configuration);
 
-// Add services to the container.
+
+builder.Services.AddApiDependencies(builder.Configuration);
+builder.Services.AddApplicationDependencies();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -15,7 +20,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+	app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();

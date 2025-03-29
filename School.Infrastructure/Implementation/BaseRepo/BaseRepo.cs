@@ -38,7 +38,7 @@ namespace School.Infrastructure.Implementation.BaseRepo
 			await _dbContext.SaveChangesAsync(cancellationToken);
 			return Entity;
 		}
-		public async Task<T> FindInclude(Expression<Func<T, bool>> match, CancellationToken cancellationToken = default, string[] Include = null)
+		public async Task<T> FindByInclude(Expression<Func<T, bool>> match, CancellationToken cancellationToken = default, string[] Include = null)
 		{
 			IQueryable<T> obj = _dbContext.Set<T>();
 			if (Include != null)
@@ -50,7 +50,7 @@ namespace School.Infrastructure.Implementation.BaseRepo
 			}
 			return await obj.FirstOrDefaultAsync(match, cancellationToken);
 		}
-		public async Task<IQueryable<T>> FindAllInclude(Expression<Func<T, bool>> match, CancellationToken cancellationToken = default, string[] Include = null)
+		public async Task<IQueryable<T>> FindAllInclude(CancellationToken cancellationToken = default, string[] Include = null)
 		{
 			IQueryable<T> obj = _dbContext.Set<T>();
 			if (Include != null)
@@ -60,7 +60,7 @@ namespace School.Infrastructure.Implementation.BaseRepo
 					obj = obj.Include(item);
 				}
 			}
-			return obj.Where(match);
+			return obj;
 		}
 	}
 }

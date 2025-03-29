@@ -1,4 +1,4 @@
-﻿namespace School.Application.EntitiesConfiguration
+﻿namespace School.Infrastructure.EntitiesConfiguration
 {
 	class StudentConfig : IEntityTypeConfiguration<Student>
 	{
