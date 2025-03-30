@@ -18,6 +18,10 @@ namespace School.Infrastructure.Implementation.UnitOfWork
 		public IBaseRepo<Student> Student => new BaseRepo<Student>(_dbContext);
 
 		public IBaseRepo<Department> Department => new BaseRepo<Department>(_dbContext);
+
+		public IBaseRepo<StudentSubject> StudentSubject => new BaseRepo<StudentSubject>(_dbContext);
+		public IBaseRepo<Subject> Subject => new BaseRepo<Subject>(_dbContext);
+
 		public int Complete()
 		{
 			return _dbContext.SaveChanges();

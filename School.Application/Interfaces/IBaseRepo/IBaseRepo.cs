@@ -17,5 +17,6 @@ namespace School.Application.Interfaces.BaseRepo
 		 Task<T> CreateAsync(T Entity, CancellationToken cancellationToken = default);
 		 Task<T> UpdateAsync(T Entity, CancellationToken cancellationToken = default);
 		 Task<T> DeleteAsync(T Entity, CancellationToken cancellationToken = default);
+		Task<IQueryable<T>> FindAllByInclude(Expression<Func<T, bool>> match, CancellationToken cancellationToken = default, string[] Include = null);
 	}
 }

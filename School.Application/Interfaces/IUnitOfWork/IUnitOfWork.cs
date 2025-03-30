@@ -11,6 +11,8 @@ namespace School.Application.Interfaces.IUnitOfWork
     {
 		public IBaseRepo<Student> Student { get;}
 		public IBaseRepo<Department> Department { get;}
+		public IBaseRepo<StudentSubject> StudentSubject { get;}
+		public IBaseRepo<Subject> Subject { get;}
 		int Complete();
 	}
 }

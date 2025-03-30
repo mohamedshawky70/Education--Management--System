@@ -62,5 +62,17 @@ namespace School.Infrastructure.Implementation.BaseRepo
 			}
 			return obj;
 		}
+		public async Task<IQueryable<T>> FindAllByInclude(Expression<Func<T, bool>> match, CancellationToken cancellationToken = default, string[] Include = null)
+		{
+			IQueryable<T> obj = _dbContext.Set<T>();
+			if (Include != null)
+			{
+				foreach (var item in Include)
+				{
+					obj = obj.Include(item);
+				}
+			}
+			return  obj.Where(match);
+		}
 	}
 }
