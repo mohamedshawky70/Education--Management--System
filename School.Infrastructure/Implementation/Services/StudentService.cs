@@ -39,8 +39,7 @@ namespace School.Infrastructure.Implementation.Services
 
 			var student = request.Adapt<Student>();
 			await _unitOfWork.Student.CreateAsync(student, cancellationToken);
-
-			var studentWithDepartment= await _unitOfWork.Student.FindByInclude(x => x.Id== student.Id, cancellationToken, ["Department"]);
+			var studentWithDepartment = await _unitOfWork.Student.FindByInclude(x => x.Id == student.Id, cancellationToken, new[] { "Department" });
 			var response = studentWithDepartment.Adapt<StudentResponse>();
 			return response;
 		}

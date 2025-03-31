@@ -27,7 +27,9 @@ namespace School.Api.Controllers
         public async Task<IActionResult> Create([FromBody]StudentRequest request, CancellationToken cancellationToken)
         {
             var response = await _studentService.CreateAsync(request, cancellationToken);
-            return response.Match(Ok, error => Problem(error.Code, error.Description, error.StatusCode));
+            if (response.IsT0)
+				return CreatedAtAction(nameof(GetById), new { id = response.AsT0.Id }, response.AsT0);
+			return response.Match(_=>null!,error => Problem(error.Code, error.Description, error.StatusCode));
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute]int id,[FromBody]StudentRequest request, CancellationToken cancellationToken)
