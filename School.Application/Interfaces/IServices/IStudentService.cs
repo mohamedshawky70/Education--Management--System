@@ -11,8 +11,6 @@ namespace School.Application.Interfaces.IServices
 		Task<OneOf<StudentResponse, Errors>> CreateAsync(StudentRequest request, CancellationToken cancellationToken = default);
 		Task<OneOf<StudentResponse, Errors>> UpdateAsync(int id, StudentRequest request, CancellationToken cancellationToken = default);
 		Task<OneOf<Errors?>> DeleteAsync(int id, CancellationToken cancellationToken = default);
-		Task<OneOf<Errors?>> CreateStudentSubjectAsync(StudentSubjectRequest request, CancellationToken cancellationToken = default);
-		Task<OneOf<IEnumerable<string>, Errors>> GetStudentSubjectsAsync(int id, CancellationToken cancellationToken = default);
-		Task<OneOf<Errors?>> DropStudentFromSubjectAsync(StudentSubjectRequest request, CancellationToken cancellationToken = default);
+
 	}
 }

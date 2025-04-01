@@ -42,26 +42,6 @@ namespace School.Api.Controllers
 			if (response.AsT0 == null) return Ok();
 			else return response.Match(error => Problem(error!.Code, error.Description, error.StatusCode));
 		}
-		[HttpPost("student-subject")]
-		public async Task<IActionResult> CreateStudentSubject([FromBody] StudentSubjectRequest request, CancellationToken cancellationToken)
-		{
-			var response = await _studentService.CreateStudentSubjectAsync(request, cancellationToken);
-			if (response.AsT0 == null) return Ok();
-			else return response.Match(error => Problem(error!.Code, error.Description, error.StatusCode));
-		}
-		[HttpGet("student-subjects/{id}")]
-		public async Task<IActionResult> GetStudentSubjects([FromRoute] int id, CancellationToken cancellationToken)
-		{
-			var response = await _studentService.GetStudentSubjectsAsync(id, cancellationToken);
-			return response.Match(Ok, error => Problem(error.Code, error.Description, error.StatusCode));
-		}
-		[HttpDelete("drop-student-from-subject")]
-		public async Task<IActionResult> DropStudentFromSubject([FromBody] StudentSubjectRequest request, CancellationToken cancellationToken)
-		{
-			var response = await _studentService.DropStudentFromSubjectAsync(request, cancellationToken);
-			if (response.AsT0 == null) return Ok();
-			else return response.Match(error => Problem(error!.Code, error.Description, error.StatusCode));
-		}
 
 	}
 }

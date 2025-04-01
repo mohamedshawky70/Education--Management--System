@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using School.Application.DTOs.Assignment;
 using School.Application.DTOs.Student;
+using School.Application.DTOs.StudentSubject;
 using School.Application.DTOs.Subject;
 
 
@@ -18,6 +19,10 @@ namespace School.Application.Mapping
 
 			config.NewConfig<Subject, SubjectResponse>()
 				.Map(des => des.TeacherName, src => src.Teacher!.Name);
+
+			config.NewConfig<StudentSubject, StudentSubjectResponse>()
+				.Map(des => des.studentName, src => src.Student!.Name)
+				.Map(des => des.subjectName, src => src.Subject!.Name);
 		}
 	}
 }
