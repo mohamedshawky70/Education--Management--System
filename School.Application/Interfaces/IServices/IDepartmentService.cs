@@ -1,6 +1,5 @@
 ﻿using OneOf;
 using School.Application.DTOs.Department;
-using School.Application.DTOs.Student;
 using School.Application.ErrorHandler;
 
 namespace School.Application.Interfaces.IServices

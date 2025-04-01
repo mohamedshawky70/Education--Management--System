@@ -30,7 +30,7 @@ namespace School.Infrastructure.Implementation.Services
 				return SubjectErrors.NotFound;
 			var ExistedStudentSubject = await _unitOfWork.StudentSubject.FindByInclude(x => x.StudentId == request.StudentId && x.SubjectId == request.SubjectId);
 			if (ExistedStudentSubject is not null)
-				return SubjectErrors.Dublicate;
+				return DepartmentSubjectErrors.Dublicate;
 
 			var studentSubject = request.Adapt<StudentSubject>();
 			await _unitOfWork.StudentSubject.CreateAsync(studentSubject, cancellationToken);
@@ -57,5 +57,6 @@ namespace School.Infrastructure.Implementation.Services
 			await _unitOfWork.StudentSubject.DeleteAsync(studentSubject, cancellationToken);
 			return null;
 		}
+
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using School.Application.DTOs.Department;
-using School.Application.DTOs.Student;
 using School.Application.Interfaces.IServices;
 
 namespace School.Api.Controllers
@@ -27,7 +26,7 @@ namespace School.Api.Controllers
 		{
 			var response = await _departmentService.CreateAsync(request, cancellationToken);
 			if (response.IsT0)
-				return RedirectToAction (nameof(GetById), new { id = response.AsT0.Id });
+				return RedirectToAction(nameof(GetById), new { id = response.AsT0.Id });
 			return response.Match(_ => null!, error => Problem(error.Code, error.Description, error.StatusCode));
 		}
 		[HttpPut("{id}")]

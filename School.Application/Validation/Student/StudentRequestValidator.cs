@@ -1,6 +1,4 @@
-﻿using School.Application.Const;
-using School.Application.DTOs.Department;
-using School.Application.DTOs.Student;
+﻿using School.Application.DTOs.Department;
 
 namespace School.Application.Validation.Department
 {

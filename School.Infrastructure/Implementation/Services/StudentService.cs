@@ -1,6 +1,4 @@
-﻿using School.Application.DTOs.Department;
-
-namespace School.Infrastructure.Implementation.Services
+﻿namespace School.Infrastructure.Implementation.Services
 {
 	public class StudentService(IUnitOfWork unitOfWork) : IStudentService
 	{

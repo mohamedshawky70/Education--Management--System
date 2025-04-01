@@ -50,7 +50,7 @@ namespace School.Infrastructure.Implementation.Services
 			if (department is null)
 				return StudentErrors.NotFound;
 			var isEmptyDepartment = await _unitOfWork.Student.FindByInclude(x => x.DepartmentId == id);
-			if(isEmptyDepartment is not null)
+			if (isEmptyDepartment is not null)
 				return DepartmentErrors.NotEmpty;
 
 			await _unitOfWork.Department.DeleteAsync(department, cancellationToken);
