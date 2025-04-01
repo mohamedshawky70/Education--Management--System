@@ -1,12 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-namespace School.Infrastructure.Data
+﻿namespace School.Infrastructure.Data
 {
 	public class ApplicationDbContext : DbContext
 	{

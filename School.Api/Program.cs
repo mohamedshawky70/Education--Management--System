@@ -1,8 +1,5 @@
-using Mapster;
-using MapsterMapper;
 using School.Api;
 using School.Application;
-using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 

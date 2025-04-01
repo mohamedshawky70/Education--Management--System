@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using School.Application.DTOs.Assignment;
 using School.Application.Interfaces.IServices;
-using School.Infrastructure.Implementation.Services;
 
 namespace School.Api.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class AssignmentController : ControllerBase
 	{
@@ -40,15 +38,15 @@ namespace School.Api.Controllers
 			return response.Match(_ => null!, error => Problem(error!.Code, error.Description, error.StatusCode));
 		}
 		[HttpPut("{id}")]
-		public async Task<IActionResult> Update([FromRoute]int id,[FromBody] AssignmentRequest request, CancellationToken cancellationToken)
+		public async Task<IActionResult> Update([FromRoute] int id, [FromBody] AssignmentRequest request, CancellationToken cancellationToken)
 		{
-			var response = await _assignmentService.UpdateAsync(id,request, cancellationToken);
+			var response = await _assignmentService.UpdateAsync(id, request, cancellationToken);
 			if (response.IsT0)//IsTo ===>Is Assignment
 				return CreatedAtAction(nameof(GetById), new { id = response.AsT0.Id }, response.AsT0);//AsT0 ====> Assignment 
 			return response.Match(_ => null!, error => Problem(error!.Code, error.Description, error.StatusCode));
 		}
 		[HttpDelete("{id}")]
-		public async Task<IActionResult> Delete([FromRoute]int id, CancellationToken cancellationToken)
+		public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken cancellationToken)
 		{
 			var response = await _assignmentService.DeleteAsync(id, cancellationToken);
 			if (response.AsT0 == null) return Ok();

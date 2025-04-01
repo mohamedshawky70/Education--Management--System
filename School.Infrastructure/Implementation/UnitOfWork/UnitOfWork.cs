@@ -1,13 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using School.Application.Interfaces.BaseRepo;
-using School.Application.Interfaces.IUnitOfWork;
+﻿using School.Application.Interfaces.BaseRepo;
 using School.Infrastructure.Data;
 using School.Infrastructure.Implementation.BaseRepo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace School.Infrastructure.Implementation.UnitOfWork
 {

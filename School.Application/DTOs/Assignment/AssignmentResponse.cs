@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace School.Application.DTOs.Assignment
+﻿namespace School.Application.DTOs.Assignment
 {
-    public record AssignmentResponse
+	public record AssignmentResponse
 	(
 		 int Id,
 		 string Title,

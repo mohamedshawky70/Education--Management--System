@@ -1,23 +1,12 @@
-﻿
-
-using Azure.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace School.Infrastructure.Implementation.Services
+﻿namespace School.Infrastructure.Implementation.Services
 {
 	public class StudentService(IUnitOfWork unitOfWork) : IStudentService
 	{
-		private readonly IUnitOfWork _unitOfWork= unitOfWork;
+		private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
 		public async Task<OneOf<StudentResponse, Errors>> GetByIdAsync(int id, CancellationToken cancellationToken = default)
 		{
-			var student = await _unitOfWork.Student.FindByInclude(x => x.Id == id,cancellationToken, ["Department"]);
+			var student = await _unitOfWork.Student.FindByInclude(x => x.Id == id, cancellationToken, ["Department"]);
 			if (student is null)
 				return StudentErrors.NotFound;
 
@@ -30,10 +19,10 @@ namespace School.Infrastructure.Implementation.Services
 			var response = students.Adapt<IEnumerable<StudentResponse>>();
 			return response;
 		}
-		public async Task<OneOf<StudentResponse,Errors>> CreateAsync(StudentRequest request, CancellationToken cancellationToken = default)
+		public async Task<OneOf<StudentResponse, Errors>> CreateAsync(StudentRequest request, CancellationToken cancellationToken = default)
 		{
-			var existedStudent = await _unitOfWork.Student.FindByInclude(x => x.Name == request.Name 
-				&& x.Address == request.Address && x.Phone == request.Phone,cancellationToken);
+			var existedStudent = await _unitOfWork.Student.FindByInclude(x => x.Name == request.Name
+				&& x.Address == request.Address && x.Phone == request.Phone, cancellationToken);
 			if (existedStudent is not null)
 				return StudentErrors.Duplicate;
 
@@ -43,14 +32,14 @@ namespace School.Infrastructure.Implementation.Services
 			var response = studentWithDepartment.Adapt<StudentResponse>();
 			return response;
 		}
-		public async Task<OneOf<StudentResponse, Errors>> UpdateAsync(int id,StudentRequest request, CancellationToken cancellationToken = default)
+		public async Task<OneOf<StudentResponse, Errors>> UpdateAsync(int id, StudentRequest request, CancellationToken cancellationToken = default)
 		{
 			var student = await _unitOfWork.Student.FindByInclude(x => x.Id == id, cancellationToken, ["Department"]);
 			if (student is null)
 				return StudentErrors.NotFound;
 
 			var existedStudent = await _unitOfWork.Student.FindByInclude(x => x.Name == request.Name
-				&& x.Address == request.Address && x.Phone == request.Phone && x.Id!= id!, cancellationToken);
+				&& x.Address == request.Address && x.Phone == request.Phone && x.Id != id!, cancellationToken);
 			if (existedStudent is not null)
 				return StudentErrors.Duplicate;
 			//Map data in object to [data] in object
@@ -63,7 +52,7 @@ namespace School.Infrastructure.Implementation.Services
 		}
 		public async Task<OneOf<Errors?>> DeleteAsync(int id, CancellationToken cancellationToken = default)
 		{
-			var student = await _unitOfWork.Student.GetByIdAsync(id,cancellationToken);
+			var student = await _unitOfWork.Student.GetByIdAsync(id, cancellationToken);
 			if (student is null)
 				return StudentErrors.NotFound;
 
@@ -79,7 +68,7 @@ namespace School.Infrastructure.Implementation.Services
 			if (subject is null)
 				return SubjectErrors.NotFound;
 			var ExistedStudentSubject = await _unitOfWork.StudentSubject.FindByInclude(x => x.StudentId == request.StudentId && x.SubjectId == request.SubjectId);
-			if(ExistedStudentSubject is not null)
+			if (ExistedStudentSubject is not null)
 				return SubjectErrors.Dublicate;
 
 			var studentSubject = request.Adapt<StudentSubject>();
@@ -92,7 +81,7 @@ namespace School.Infrastructure.Implementation.Services
 			if (student is null)
 				return StudentErrors.NotFound;
 
-			var studentSubject= await _unitOfWork.StudentSubject.FindAllByInclude(x => x.StudentId == id);
+			var studentSubject = await _unitOfWork.StudentSubject.FindAllByInclude(x => x.StudentId == id);
 			List<string> NameSubjects = [];
 			foreach (var subId in studentSubject)
 			{

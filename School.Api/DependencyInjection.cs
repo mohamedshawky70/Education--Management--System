@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using School.Application.Interfaces.IUnitOfWork;
-using School.Infrastructure.Implementation.UnitOfWork;
-using School.Infrastructure.Implementation.Services;
-using School.Infrastructure.Data;
 using School.Application.Interfaces.IServices;
+using School.Application.Interfaces.IUnitOfWork;
+using School.Infrastructure.Data;
+using School.Infrastructure.Implementation.Services;
+using School.Infrastructure.Implementation.UnitOfWork;
 namespace School.Api;
 
 public static class DependencyInjection
@@ -15,9 +15,10 @@ public static class DependencyInjection
 		option.UseSqlServer(ConnectionString)
 		);
 
-		services.AddScoped<IUnitOfWork,UnitOfWork>();
+		services.AddScoped<IUnitOfWork, UnitOfWork>();
 		services.AddScoped<IStudentService, StudentService>();
 		services.AddScoped<IAssignmentService, AssignmentService>();
+		services.AddScoped<ISubjectService, SubjectService>();
 
 
 		return services;

@@ -1,17 +1,10 @@
-﻿using School.Application.Const;
-using School.Application.DTOs.Assignment;
-using School.Application.DTOs.Student;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using School.Application.DTOs.Assignment;
 
 namespace School.Application.Validation.Assignment
 {
-    public class AssignmentRequestValidator:AbstractValidator<AssignmentRequest>
-    {
-		public AssignmentRequestValidator()
+	public class SubjectResponseValidator : AbstractValidator<AssignmentRequest>
+	{
+		public SubjectResponseValidator()
 		{
 			RuleFor(x => x.Title).MaximumLength(100)
 				.WithMessage("Maximum length of Title is 100 char");

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using School.Application.Interfaces.BaseRepo;
+﻿using School.Application.Interfaces.BaseRepo;
 using School.Infrastructure.Data;
+using System.Linq.Expressions;
 
 namespace School.Infrastructure.Implementation.BaseRepo
 {
@@ -72,7 +66,7 @@ namespace School.Infrastructure.Implementation.BaseRepo
 					obj = obj.Include(item);
 				}
 			}
-			return  obj.Where(match);
+			return obj.Where(match);
 		}
 	}
 }
