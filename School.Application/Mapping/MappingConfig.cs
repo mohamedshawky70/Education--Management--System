@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using School.Application.DTOs.Assignment;
+using School.Application.DTOs.Department;
 using School.Application.DTOs.Student;
 using School.Application.DTOs.StudentSubject;
 using School.Application.DTOs.Subject;
