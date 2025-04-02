@@ -3,6 +3,7 @@ using School.Application.DTOs.Assignment;
 using School.Application.DTOs.Student;
 using School.Application.DTOs.StudentSubject;
 using School.Application.DTOs.Subject;
+using School.Application.DTOs.Teacher;
 
 
 namespace School.Application.Mapping
@@ -23,6 +24,9 @@ namespace School.Application.Mapping
 			config.NewConfig<StudentSubject, StudentSubjectResponse>()
 				.Map(des => des.studentName, src => src.Student!.Name)
 				.Map(des => des.subjectName, src => src.Subject!.Name);
+
+			config.NewConfig<Teacher, TeacherResponse>()
+				.Map(des => des.SubjectName, src => src.Subject.Select(x => x.Name));
 		}
 	}
 }

@@ -36,6 +36,10 @@ namespace School.Infrastructure.Implementation.Services
 			var department = await _unitOfWork.Department.GetByIdAsync(id, cancellationToken);
 			if (department is null)
 				return DepartmentErrors.NotFound;
+			
+			var departmentExisted = await _unitOfWork.Department.FindAllByInclude(x=>x.Name==request.Name&&x.Id!=id, cancellationToken);
+			if (departmentExisted is not null)
+				return DepartmentErrors.Duplicate;
 
 			//Map data in object to [data] in object
 			var newDepartment = request.Adapt(department);
