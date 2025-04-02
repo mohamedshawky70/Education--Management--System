@@ -2,9 +2,9 @@
 
 namespace School.Application.Validation.Subject
 {
-	public class SubjectRequestValidator : AbstractValidator<SubjectRequest>
+	public class TeacherRequestValidator : AbstractValidator<SubjectRequest>
 	{
-		public SubjectRequestValidator()
+		public TeacherRequestValidator()
 		{
 			RuleFor(x => x.Name).MaximumLength(100)
 				.WithMessage("Maximum length of Title is 100 char");
