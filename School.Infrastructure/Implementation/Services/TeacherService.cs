@@ -8,7 +8,7 @@ namespace School.Infrastructure.Implementation.Services
 	{
 		private readonly IUnitOfWork _unitOfWork = unitOfWork;
 		public async Task<OneOf<TeacherResponse, Errors>> GetByIdAsync(int id, CancellationToken cancellationToken = default)
-		{
+		{			
 			var teacher = await _unitOfWork.Teacher.FindByInclude(x=>x.Id==id ,cancellationToken,["Subject"]);
 			if (teacher is null)
 				return TeacherErrors.NotFound;

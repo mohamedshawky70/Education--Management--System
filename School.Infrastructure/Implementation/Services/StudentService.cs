@@ -1,8 +1,13 @@
-﻿namespace School.Infrastructure.Implementation.Services
+﻿using Microsoft.Extensions.Caching.Hybrid;
+using System.Collections.Generic;
+
+namespace School.Infrastructure.Implementation.Services
 {
-	public class StudentService(IUnitOfWork unitOfWork) : IStudentService
+	public class StudentService(IUnitOfWork unitOfWork,HybridCache hybridCache) : IStudentService
 	{
+		private const string cashPrefix = "allStudent";
 		private readonly IUnitOfWork _unitOfWork = unitOfWork;
+		private readonly HybridCache _hybridCache = hybridCache;
 
 		public async Task<OneOf<StudentResponse, Errors>> GetByIdAsync(int id, CancellationToken cancellationToken = default)
 		{
@@ -15,9 +20,15 @@
 		}
 		public async Task<IEnumerable<StudentResponse>> GetAllAsync(CancellationToken cancellationToken = default)
 		{
-			var students = await _unitOfWork.Student.FindAllInclude(cancellationToken, ["Department"]);
-			var response = students.Adapt<IEnumerable<StudentResponse>>();
-			return response;
+			var cacheKey = cashPrefix;
+			var students = await _hybridCache.GetOrCreateAsync<IEnumerable<StudentResponse>>(
+				cacheKey,
+				async cacheEntry =>
+				{
+					var studentEntities = await _unitOfWork.Student.FindAllInclude(cancellationToken, ["Department"]);
+					return studentEntities.Adapt<IEnumerable<StudentResponse>>();
+				});
+			return students;
 		}
 		public async Task<OneOf<StudentResponse, Errors>> CreateAsync(StudentRequest request, CancellationToken cancellationToken = default)
 		{
@@ -28,6 +39,7 @@
 
 			var student = request.Adapt<Student>();
 			await _unitOfWork.Student.CreateAsync(student, cancellationToken);
+			await _hybridCache.RemoveAsync(cashPrefix, cancellationToken);
 			var studentWithDepartment = await _unitOfWork.Student.FindByInclude(x => x.Id == student.Id, cancellationToken, new[] { "Department" });
 			var response = studentWithDepartment.Adapt<StudentResponse>();
 			return response;
@@ -45,6 +57,7 @@
 			//Map data in object to [data] in object
 			var newStudent = request.Adapt(student);
 			await _unitOfWork.Student.UpdateAsync(newStudent, cancellationToken);
+			await _hybridCache.RemoveAsync(cashPrefix, cancellationToken);
 
 			var studentWithDepartment = await _unitOfWork.Student.FindByInclude(x => x.Id == student.Id, cancellationToken, ["Department"]);
 			var response = studentWithDepartment.Adapt<StudentResponse>();
@@ -57,6 +70,8 @@
 				return StudentErrors.NotFound;
 
 			await _unitOfWork.Student.DeleteAsync(student, cancellationToken);
+			await _hybridCache.RemoveAsync(cashPrefix, cancellationToken);
+
 			return null;
 		}
 	}

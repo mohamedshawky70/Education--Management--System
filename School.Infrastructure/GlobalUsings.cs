@@ -7,3 +7,8 @@ global using School.Application.ErrorHandler;
 global using School.Application.Interfaces.IServices;
 global using School.Application.Interfaces.IUnitOfWork;
 global using School.Domain.Entities;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Identity;
+global using School.Application.DTOs.Authentication;
+global using School.Application.DTOs.User;
+global using SurveyBasket.API.DTOs.User;

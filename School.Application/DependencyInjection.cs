@@ -1,6 +1,7 @@
 ﻿using FluentValidation.AspNetCore;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
+using School.Application.ExceptionHandler;
 using System.Reflection;
 
 namespace School.Application
@@ -16,6 +17,12 @@ namespace School.Application
 			//Add Fluent Validation [FluentValidation.AspNetCore]
 			services.AddFluentValidationAutoValidation()
 				.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+			//Add ExceptionHandler
+			services.AddExceptionHandler<GlobalExceptionHandler>();
+			services.AddProblemDetails();
+
+
 			return services;
 		}
 

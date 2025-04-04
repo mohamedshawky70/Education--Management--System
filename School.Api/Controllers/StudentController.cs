@@ -9,6 +9,7 @@ namespace School.Api.Controllers
 	public class StudentController(IStudentService studentService) : ControllerBase
 	{
 		private readonly IStudentService _studentService = studentService;
+
 		[HttpGet("{id}")]
 		public async Task<IActionResult> GetById([FromRoute] int id, CancellationToken cancellationToken)
 		{
