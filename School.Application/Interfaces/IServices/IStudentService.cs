@@ -6,10 +6,11 @@ namespace School.Application.Interfaces.IServices
 {
 	public interface IStudentService
 	{
-		Task<OneOf<StudentResponse, Errors>> GetByIdAsync(int id, CancellationToken cancellationToken = default);
-		Task<IEnumerable<StudentResponse>> GetAllAsync(CancellationToken cancellationToken = default);
-		Task<OneOf<StudentResponse, Errors>> CreateAsync(StudentRequest request, CancellationToken cancellationToken = default);
-		Task<OneOf<StudentResponse, Errors>> UpdateAsync(int id, StudentRequest request, CancellationToken cancellationToken = default);
+		Task<OneOf<StudentResponseV1, Errors>> GetByIdAsyncV1(int id, CancellationToken cancellationToken = default);
+		Task<OneOf<StudentResponseV2, Errors>> GetByIdAsyncV2(int id, CancellationToken cancellationToken = default);
+		Task<IEnumerable<StudentResponseV2>> GetAllAsync(CancellationToken cancellationToken = default);
+		Task<OneOf<StudentResponseV2, Errors>> CreateAsync(StudentRequest request, CancellationToken cancellationToken = default);
+		Task<OneOf<StudentResponseV2, Errors>> UpdateAsync(int id, StudentRequest request, CancellationToken cancellationToken = default);
 		Task<OneOf<Errors?>> DeleteAsync(int id, CancellationToken cancellationToken = default);
 
 	}

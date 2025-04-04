@@ -1,4 +1,5 @@
-﻿using Hangfire;
+﻿using Asp.Versioning;
+using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -16,6 +17,7 @@ using School.Infrastructure.Implementation.Services;
 using School.Infrastructure.Implementation.UnitOfWork;
 using SurveyBasket.API.Services;
 using System.Text;
+using System.Threading.RateLimiting;
 namespace School.Api;
 
 public static class DependencyInjection
@@ -95,9 +97,38 @@ public static class DependencyInjection
 		services.AddTransient<IEmailSender, EmailSender>();
 		services.AddHttpContextAccessor();
 
-		
+		//Add rate limiting
+		services.AddRateLimiter(RateLimiterOption =>
+		{
+			RateLimiterOption.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+			//Token bucket limit 
+			RateLimiterOption.AddTokenBucketLimiter("Token", option =>
+			{
+				option.TokenLimit = 2;
+				option.QueueLimit = 1;
+				option.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+				option.TokensPerPeriod = 2; //add 2 token after 30 second
+				option.ReplenishmentPeriod = TimeSpan.FromSeconds(30);
+				option.AutoReplenishment = true; // Automatic adding
+			}
+			);
+		});
 
+		//Add api versioning
+		services.AddApiVersioning(options =>
+		{
+			options.DefaultApiVersion = new ApiVersion(1); //default
+			options.AssumeDefaultVersionWhenUnspecified = true; 
+			options.ReportApiVersions = true;
+			options.ApiVersionReader = new HeaderApiVersionReader("api-version");
+		}).AddApiExplorer(options =>
+		{
+			options.GroupNameFormat = "'v'V";
+			options.SubstituteApiVersionInUrl = true;
+		});
 
+		//Add CORS
+		services.AddCors(); //default policy
 		return services;
 	}
 }

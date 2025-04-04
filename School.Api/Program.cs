@@ -22,8 +22,11 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+//Use logging
 app.UseSerilogRequestLogging();
 
+//Use CORS
+app.UseCors(c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -38,7 +41,8 @@ app.UseAuthorization();
 app.MapControllers();
 //Add ExceptionHandler
 app.UseExceptionHandler();
-
+//Add rete limiting
+app.UseRateLimiter();
 var scopFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
 using var scop = scopFactory.CreateScope();
 var rolManager = scop.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();

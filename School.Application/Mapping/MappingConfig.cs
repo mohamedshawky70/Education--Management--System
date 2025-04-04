@@ -12,7 +12,7 @@ namespace School.Application.Mapping
 	{
 		public void Register(TypeAdapterConfig config)
 		{
-			config.NewConfig<Student, StudentResponse>()
+			config.NewConfig<Student, StudentResponseV2>()
 				.Map(des => des.DepartmentName, src => src.Department.Name);
 			config.NewConfig<Assignment, AssignmentResponse>()
 				.Map(des => des.StudentName, src => src.Student!.Name)
