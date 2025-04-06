@@ -163,6 +163,8 @@ A comprehensive backend API for managing educational institutions, including stu
 
 -**📈 API Versioning**: Supported multiple versions of the API to ensure backward compatibility and smooth transitions as the project evolves.
 
+-**🔍 Health Checks**: Incorporated health checks to monitor the system’s status and performance, ensuring reliability and uptime.
+
 
 ## Development Focus
 
